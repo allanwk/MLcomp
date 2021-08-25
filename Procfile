@@ -1,0 +1,1 @@
+web: python ./MLcomp/server.py
