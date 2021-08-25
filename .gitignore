@@ -2,4 +2,4 @@
 *.jpg
 *.jpeg
 .env
-.sqlite
+.sqlite3
