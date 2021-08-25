@@ -1,4 +1,5 @@
 import os
+import dj_database_url
 from dotenv import dotenv_values
 
 """
@@ -22,15 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+config = dotenv_values(os.path.join(BASE_DIR, '../.env'))
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-&r*zzoph3u2cj23_1j6kr@26pc4!h&itq$@xwa5_$i*3x0$$@o'
+SECRET_KEY = config["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
-
-config = dotenv_values('.env')
 ALLOWED_HOSTS = ['mlcomp.herokuapp.com']
 if "ALLOWED_HOST" in config:
     ALLOWED_HOSTS.append(config["ALLOWED_HOST"])
@@ -83,12 +83,10 @@ WSGI_APPLICATION = 'MLcomp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+database_url = str(config["DATABASE_URL"])
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    'default' : dj_database_url.parse(database_url)
     }
-}
 
 
 # Password validation
