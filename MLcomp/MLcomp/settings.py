@@ -1,3 +1,6 @@
+import os
+from dotenv import dotenv_values
+
 """
 Django settings for MLcomp project.
 
@@ -25,12 +28,12 @@ SECRET_KEY = 'django-insecure-&r*zzoph3u2cj23_1j6kr@26pc4!h&itq$@xwa5_$i*3x0$$@o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-"""
-from dotenv import dotenv_values
+
+
 config = dotenv_values('.env')
-ALLOWED_HOSTS = [config["ALLOWED_HOST"], 'localhost']
-"""
 ALLOWED_HOSTS = ['mlcomp.herokuapp.com']
+if "ALLOWED_HOST" in config:
+    ALLOWED_HOSTS.append(config["ALLOWED_HOST"])
 
 # Application definition
 
@@ -123,7 +126,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -131,7 +133,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import os
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
