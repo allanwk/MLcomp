@@ -29,9 +29,9 @@ else:
     SECRET_KEY = str(os.environ.get("DJANGO_SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['mlcomp.herokuapp.com']
+ALLOWED_HOSTS = ['mlcomp.herokuapp.com', 'localhost']
 if "ALLOWED_HOST" in config:
     ALLOWED_HOSTS.append(config["ALLOWED_HOST"])
 
