@@ -18,4 +18,5 @@ from . import views
 
 urlpatterns = [
     path('', views.homepage, name="homepage"),
+    path('dataset/<slug:slug>', views.dataset, name="dataset")
 ]

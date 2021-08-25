@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-&r*zzoph3u2cj23_1j6kr@26pc4!h&itq$@xwa5_$i*3x0$$@o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+from dotenv import dotenv_values
+config = dotenv_values('.env')
+ALLOWED_HOSTS = [config["ALLOWED_HOST"], 'localhost']
 
 
 # Application definition
@@ -37,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+    'django_cleanup'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +127,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import os
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
