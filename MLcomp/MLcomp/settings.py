@@ -20,13 +20,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 config = dotenv_values(os.path.join(BASE_DIR, '../.env'))
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config["DJANGO_SECRET_KEY"]
+if "DJANGO_SECRET_KEY" in config:
+    SECRET_KEY = config["DJANGO_SECRET_KEY"]
+else:
+    SECRET_KEY = str(os.environ.get("DJANGO_SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -83,7 +83,10 @@ WSGI_APPLICATION = 'MLcomp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-database_url = str(config["DATABASE_URL"])
+if "DATABASE_URL" in config:
+    database_url = str(config["DATABASE_URL"])
+else:
+    database_url = str(os.environ.get("DATABASE_URL"))
 DATABASES = {
     'default' : dj_database_url.parse(database_url)
     }
