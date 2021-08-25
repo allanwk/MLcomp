@@ -25,10 +25,12 @@ SECRET_KEY = 'django-insecure-&r*zzoph3u2cj23_1j6kr@26pc4!h&itq$@xwa5_$i*3x0$$@o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+"""
 from dotenv import dotenv_values
 config = dotenv_values('.env')
 ALLOWED_HOSTS = [config["ALLOWED_HOST"], 'localhost']
-
+"""
+ALLOWED_HOSTS = ['mlcomp.herokuapp.com']
 
 # Application definition
 
