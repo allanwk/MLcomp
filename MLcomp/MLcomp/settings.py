@@ -22,6 +22,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 config = dotenv_values(os.path.join(BASE_DIR, '../.env'))
 
+#Configuração Cloudinary
+import cloudinary
+if "CLOUDINARY_URL" in config:
+    CLOUDINARY_URL = config["CLOUDINARY_URL"]
+else:
+    CLOUDINARY_URL = str(os.environ.get("CLOUDINARY_URL"))
+
+cloudinary_string = CLOUDINARY_URL[CLOUDINARY_URL.index('/') + 2:]
+cloudinary_string = cloudinary_string.split(":")
+api_key = cloudinary_string[0]
+api_secret, cloud_name = tuple(cloudinary_string[1].split('@'))
+
+cloudinary.config(
+    cloud_name=cloud_name,
+    api_key=api_key,
+    api_secret=api_secret,
+    secure=True
+)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 if "DJANGO_SECRET_KEY" in config:
     SECRET_KEY = config["DJANGO_SECRET_KEY"]
@@ -29,7 +48,7 @@ else:
     SECRET_KEY = str(os.environ.get("DJANGO_SECRET_KEY"))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['mlcomp.herokuapp.com', 'localhost']
 if "ALLOWED_HOST" in config:
@@ -45,7 +64,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main.apps.MainConfig',
-    'django_cleanup'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +74,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'MLcomp.urls'
