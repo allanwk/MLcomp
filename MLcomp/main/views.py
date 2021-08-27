@@ -6,7 +6,7 @@ def homepage(request):
                   template_name="./main/homepage.html",
                   context={"datasets": Dataset.objects.all})
 
-def dataset(request, slug):
+def dataset(request, id):
     return render(request, 
                   template_name="./main/dataset.html",
-                  context={"dataset": Dataset.objects.get(name=slug)})
+                  context={"dataset": Dataset.objects.get(id=id)})
